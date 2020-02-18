@@ -64,10 +64,12 @@ app.delete('/api/notes/:id', async (req, res) => {
     const fileData = await fs.readFile(dbFilePath, 'utf-8');
     const data = JSON.parse(fileData);
 
-    const newData = data.filter(note => note.id !== noteId)
+    const newData = data.filter(note => note.id == noteId);
     await fs.writeFile(dbFilePath, JSON.stringify(newData));
 
-    res.end();
+    res.json({
+        success: true
+    });
 });
 
 // PATH TO REDIRECT TO MAIN PAGE IF PAGE DOES NOT EXIST
